@@ -63,15 +63,22 @@ const login = async (req, res) => {
     const { username, password } = req.body;
 
     const user = await User.findOne({ username });
-    const isPasswordCorrect = bcrypt.compare(password, user?.password || "");
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      user?.password || ""
+    );
 
-    if (!user || !password) {
-      return res
-        .status(404)
-        .json({ error: "The login or password are not correct" });
+    if (!user || !isPasswordCorrect) {
+      return res.status(404).json({ error: "Invalid username or password" });
     }
+    generateTokenAndSendCookies(user._id, res);
 
-    
+    res.status(200).json({
+      id: user._id,
+      username: user.username,
+      fullName: user.fullName,
+      profilePic: user.profilePic,
+    });
   } catch (error) {
     console.error(`Error in login controller: ${error.message}`);
     res.status(500).json({ error: "Internal Server Error" });
@@ -79,7 +86,13 @@ const login = async (req, res) => {
 };
 
 const logout = (req, res) => {
-  res.send("logout");
+  try {
+    res.cookie("token", "", { maxAge: 0 });
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    console.error(`Error in logout controller: ${error.message}`);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 module.exports = {
