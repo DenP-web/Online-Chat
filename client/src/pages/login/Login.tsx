@@ -19,8 +19,8 @@ const Login: React.FC = () => {
               placeholder="Enter username"
             />
           </div>
-          <div className="">
-          <label className="label p-2">
+          <div>
+            <label className="label p-2">
               <span className="text-base label-text">Password</span>
             </label>
             <input
@@ -28,6 +28,12 @@ const Login: React.FC = () => {
               type="password"
               placeholder="Enter password"
             />
+          </div>
+          <a href="#" className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block transition-all">
+            Don't have an account?
+          </a>
+          <div>
+            <button className="btn btn-block btn-sm mt-2">Login</button>
           </div>
         </form>
       </div>
