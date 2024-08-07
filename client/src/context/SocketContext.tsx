@@ -35,7 +35,7 @@ export const SocketContextProvider: React.FC<SocketContextProviderProps> = ({
 
   useEffect(() => {
     if (userData) {
-      const newSocket:Socket = io("http://localhost:5000", {
+      const newSocket:Socket = io("https://online-chat-47ro.onrender.com/", {
         query: {
           userId: userData._id
         }

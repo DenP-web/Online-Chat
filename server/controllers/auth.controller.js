@@ -4,10 +4,8 @@ const generateTokenAndSendCookies = require("../utils/generateToken");
 
 const signup = async (req, res) => {
   try {
-    console.log(req.body);
     const { fullName, username, password, confirmPassword, gender } = req.body;
 
-    // Validate input data
     if (!fullName || !username || !password || !confirmPassword || !gender) {
       return res.status(400).json({ error: "All fields are required" });
     }
@@ -16,22 +14,19 @@ const signup = async (req, res) => {
       return res.status(400).json({ error: "Passwords do not match" });
     }
 
-    // Check if the username already exists
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({ error: "Username already exists" });
     }
 
-    // Generate profile picture URL based on gender
     const profilePicUrl = `https://avatar.iran.liara.run/public/${
       gender === "male" ? "boy" : "girl"
     }?username=${username}`;
 
-    // Hash the password
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create a new user
     const newUser = new User({
       fullName,
       username,

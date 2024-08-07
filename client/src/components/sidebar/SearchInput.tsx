@@ -5,32 +5,31 @@ import useConversation from "../../zustand/useConvesation";
 import useGetConversation from "../../hooks/useGetConversation";
 
 type SearchFormType = {
-  search: string
-}
+  search: string;
+};
 
 const SearchInput = () => {
-  const {conversations} = useGetConversation()
-  const {setSelectedConversation} = useConversation()
+  const { conversations } = useGetConversation();
+  const { setSelectedConversation } = useConversation();
 
-  const {
-    register,
-    handleSubmit,
-  } = useForm<SearchFormType>({
-    mode: 'onChange'
+  const { register, handleSubmit } = useForm<SearchFormType>({
+    mode: "onChange",
   });
 
   const search = (searchText: string) => {
-    return conversations?.find(c => c.fullName.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()))
-  }
+    return conversations?.find((c) =>
+      c.fullName.toLocaleLowerCase().includes(searchText.toLocaleLowerCase())
+    );
+  };
 
-  const onSubmit = (data: {search: string}) => {
-    if(data.search.length < 3) {
-      return toast.error('Write more then 3 symbol', {duration: 1200})
+  const onSubmit = (data: { search: string }) => {
+    if (data.search.length < 3) {
+      return toast.error("Write more then 3 symbol", { duration: 1200 });
     }
-    const searchedConversation = search(data.search)
-    if(searchedConversation) {
-      setSelectedConversation(searchedConversation)
-    }else toast.error('Conversation is not found')
+    const searchedConversation = search(data.search);
+    if (searchedConversation) {
+      setSelectedConversation(searchedConversation);
+    } else toast.error("Conversation is not found");
   };
 
   return (
@@ -39,10 +38,13 @@ const SearchInput = () => {
         type="text"
         placeholder="Search..."
         className="input input-bordered rounded-full"
-        {...register("search" )}
+        {...register("search")}
       />
-      <button type="submit" className="btn btn-circle bg-sky-500 text-white">
-        <IoSearchSharp className="w-6 h-6 outline-none" />
+      <button
+        type="submit"
+        className="btn btn-circle bg-sky-500 text-white "
+      >
+        <IoSearchSharp className=" outline-none" />
       </button>
     </form>
   );
