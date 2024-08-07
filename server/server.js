@@ -15,6 +15,8 @@ const PORT = process.env.PORT || 5000;
 
 require("dotenv").config();
 
+const __dirname = path.resolve();
+
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
