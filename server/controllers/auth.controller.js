@@ -57,12 +57,10 @@ const login = async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
-    console.log(user)
     const isPasswordCorrect = await bcrypt.compare(
       password,
       user?.password || ""
     );
-    console.log(isPasswordCorrect)
     if (!user || !isPasswordCorrect) {
       return res.status(404).json({ error: "Invalid username or password" });
     }
