@@ -5,7 +5,7 @@ const cors = require('cors')
 
 const {app, server} = require('./socket/socket')
 
-const connectToMongoDB = require("./db/connectMongoDb");
+const connectToMongoDB = require('./db/connectMongoDB');
 
 const authRoutes = require("./routes/auth.routes");
 const messageRoutes = require('./routes/message.routes')
