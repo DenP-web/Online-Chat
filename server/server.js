@@ -5,8 +5,6 @@ const cors = require('cors')
 
 const {app, server} = require('./socket/socket')
 
-const dirname = path.resolve()
-
 const connectToMongoDB = require("./db/connectMongoDb");
 
 const authRoutes = require("./routes/auth.routes");
@@ -32,11 +30,11 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/users", usersRoutes);
 
 
-app.use(express.static(path.join(dirname, '/client/dist')))
+app.use(express.static(path.join(__dirname, "/client/dist")));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(dirname, 'client', 'dist', 'index.html'))
-})
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 
 server.listen(PORT, () => {
