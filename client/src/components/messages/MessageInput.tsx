@@ -7,7 +7,7 @@ type SendMessageFormType = {
 };
 
 const MessageInput = () => {
-  const { sendMessage, loading, isSuccess } = useSendMessage();
+  const { sendMessage, loading } = useSendMessage();
   const { reset, register, handleSubmit } = useForm<SendMessageFormType>();
 
   const onSubmit = (data: { message: string }) => {
