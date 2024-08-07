@@ -1,6 +1,7 @@
 import React from "react";
 import { TUserData } from "../../types";
 import useConversation from "../../zustand/useConvesation";
+import { useSocketContext } from "../../context/SocketContext";
 
 type ConversationProps = {
   conversation: TUserData;
@@ -18,6 +19,11 @@ const Conversation: React.FC<ConversationProps> = ({
 
   const isSelected = selectedConversation?._id === conversation._id;
 
+  const {onlineUsers} = useSocketContext()
+  const isOnline = onlineUsers.includes(conversation._id)
+
+  console.log(onlineUsers)
+
   return (
     <>
       <div
@@ -26,7 +32,7 @@ const Conversation: React.FC<ConversationProps> = ({
         }`}
         onClick={() => setSelectedConversation(conversation)}
       >
-        <div className="avatar online">
+        <div className={`avatar ${isOnline ? 'online' : ''}`}>
           <div className="w-12 rounded-full">
             <img src={profilePic} alt="User avatar" />
           </div>

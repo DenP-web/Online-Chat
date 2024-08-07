@@ -25,4 +25,5 @@ export type TResponseSendMessageData = {
   createdAt: string
   updatedAt: string
   __v: number
+  shouldShake?: boolean
 }

@@ -2,18 +2,21 @@ const express = require("express");
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 
+const {app} = require('./socket/socket')
+
 const connectToMongoDB = require("./db/connectMongoDb");
 
 const authRoutes = require("./routes/auth.routes");
 const messageRoutes = require('./routes/message.routes')
-const usersRoutes = require('./routes/user.routes')
+const usersRoutes = require('./routes/user.routes');
+const { server } = require("./socket/socket");
 
 const corsOptions = {
   origin: 'http://localhost:3000', // The origin you want to allow
   credentials: true, // Allow credentials (cookies)
 };
 
-const app = express();
+
 const PORT = process.env.PORT || 5000;
 
 require("dotenv").config();
@@ -29,7 +32,7 @@ app.use("/api/users", usersRoutes);
 
 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   connectToMongoDB()
   console.log("Server is Running " + PORT);
 });
