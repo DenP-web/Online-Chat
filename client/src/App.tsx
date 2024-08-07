@@ -7,14 +7,20 @@ import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
 
 const App: React.FC = () => {
-  const {userData} = useAuthContext()
+  const { userData } = useAuthContext();
 
   return (
     <div className="p-4 h-screen flex items-center justify-center">
       <Routes>
-        <Route path={"/"} element={<Home />} />
-        <Route path={"/login"} element={<Login />} />
-        <Route path={"/signup"} element={userData ? <Navigate to={'/'} /> : <SignUp />} />
+        <Route path={"/"} element={userData ? <Home /> : <Login />} />
+        <Route
+          path={"/login"}
+          element={userData ? <Navigate to={"/"} /> : <Login />}
+        />
+        <Route
+          path={"/signup"}
+          element={userData ? <Navigate to={"/"} /> : <SignUp />}
+        />
       </Routes>
       <Toaster />
     </div>

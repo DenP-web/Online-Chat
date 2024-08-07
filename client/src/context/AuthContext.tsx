@@ -1,9 +1,9 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
-import { TSingUpData } from "../types";
+import { TUserData } from "../types";
 
 type AuthContextType = {
-  userData: TSingUpData | null;
-  setUser: (data: TSingUpData) => void;
+  userData: TUserData | null;
+  setUser: (data: TUserData) => void;
   logOut: () => void;
 };
 
@@ -25,13 +25,12 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({
   children,
 }) => {
   const storedUser = localStorage.getItem("chat-user");
-  const initialUserData: TSingUpData | null = storedUser
+  
+  const initialUserData: TUserData | null = storedUser
     ? JSON.parse(storedUser)
     : null;
-
-  const [userData, setUserData] = useState<TSingUpData | null>(initialUserData);
-
-  const setUser = (data: TSingUpData) => {
+  const [userData, setUserData] = useState<TUserData | null>(initialUserData);
+  const setUser = (data: TUserData) => {
     setUserData(data);
     localStorage.setItem("chat-user", JSON.stringify(data));
   };

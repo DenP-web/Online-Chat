@@ -14,7 +14,7 @@ export type TSignUpInputs = {
 };
 
 const SignUp: React.FC = () => {
-  const { signUp, isSuccess } = useSingUp();
+  const { signUp, isSuccess, loading } = useSingUp();
   const {
     reset,
     register,
@@ -25,8 +25,8 @@ const SignUp: React.FC = () => {
 
   const onSubmit: SubmitHandler<TSignUpInputs> = (data) => {
     signUp(data);
-    if(isSuccess) {
-      reset()
+    if (isSuccess) {
+      reset();
     }
   };
 
@@ -125,9 +125,17 @@ const SignUp: React.FC = () => {
           >
             Already have an account?
           </Link>
-          <div>
-            <button className="btn btn-block btn-sm mt-2">Sign Up</button>
-          </div>
+
+  
+            <button
+              className={`btn btn-block btn-sm mt-2 ${
+                loading ? "opacity-5" : ""
+              }`}
+              disabled={loading}
+            >
+              Sign Up {loading && <span className="loading loading-spinner" />}
+            </button>
+      
         </form>
       </div>
     </div>

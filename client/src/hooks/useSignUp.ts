@@ -2,7 +2,7 @@ import { useState } from "react"
 import { TSignUpInputs } from "../pages/signup/SignUp"
 import toast from "react-hot-toast"
 import { hasErrorMessage } from "../utils/hasErrorMessage"
-import { TSingUpData } from "../types"
+import { TUserData, TUserErrorData } from "../types"
 import { useAuthContext } from "../context/AuthContext"
 
 const useSingUp = () => {
@@ -13,7 +13,7 @@ const useSingUp = () => {
   const signUp = async (signUpData: TSignUpInputs) => {
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/signup", {
+      const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,9 +21,13 @@ const useSingUp = () => {
         body: JSON.stringify(signUpData),
       });
 
-      const data : TSingUpData  = await response.json()
+      const data : TUserData | TUserErrorData  = await response.json()
+      if('error' in data) {
+        throw new Error(data.error)
+      }
       setUser(data)
       setIsSuccess(true)
+      toast.success('You successfully REGISTER')
     } catch (error) {
       if (hasErrorMessage(error)) {
         toast.error(error.message)

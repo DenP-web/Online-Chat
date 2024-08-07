@@ -8,6 +8,10 @@ const authRoutes = require("./routes/auth.routes");
 const messageRoutes = require('./routes/message.routes')
 const usersRoutes = require('./routes/user.routes')
 
+const corsOptions = {
+  origin: 'http://localhost:3000', // The origin you want to allow
+  credentials: true, // Allow credentials (cookies)
+};
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,7 +20,7 @@ require("dotenv").config();
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
