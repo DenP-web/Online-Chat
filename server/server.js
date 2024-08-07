@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 
 require("dotenv").config();
 
-const __dirname = path.resolve();
+const dirname = path.resolve();
 
 app.use(express.json())
 app.use(cookieParser())
@@ -26,10 +26,10 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/users", usersRoutes);
 
 
-app.use(express.static(path.join(__dirname, "/client/dist")));
+app.use(express.static(path.join(dirname, "/client/dist")));
 
 app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+	res.sendFile(path.join(dirname, "client", "dist", "index.html"));
 });
 
 
