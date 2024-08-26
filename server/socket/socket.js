@@ -12,15 +12,13 @@ const io = new Server(server, {
   },
 });
 
- const getReceiverSocketId = (receiverId) => {
-  return userSocketMap[receiverId]
-}
-
-
 const userSocketMap = {};
 
-io.on("connection", (socket) => {
+const getReceiverSocketId = (receiverId) => {
+  return userSocketMap[receiverId];
+};
 
+io.on("connection", (socket) => {
   const userId = socket.handshake.query.userId;
   if (userId != undefined) {
     userSocketMap[userId] = socket.id;
